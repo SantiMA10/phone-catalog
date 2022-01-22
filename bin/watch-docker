@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+yarn docker:up && yarn docker:migrate && DEV_MODE=docker yarn test:watch $1 && yarn docker:down
