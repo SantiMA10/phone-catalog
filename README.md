@@ -1,4 +1,4 @@
-# 📞 Phone Catalog [![Deploy](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml/badge.svg)](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml)
+# 📞 Phone Catalog [![Deploy](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml/badge.svg)](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml) [![visit it](https://img.shields.io/badge/visit-it-blue)](https://phone-catalog-ten.vercel.app/)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), that uses React to show a Phone Catalog and Next.js API routes as the backend for the catalog. 
 
@@ -49,4 +49,4 @@ docker:test:watch // setup MySQL using docker and the tests in watch mode
 
 # Deploy
 
-This is project is deployed to [Vercel](https://vercel.com/) and uses [PlanetScale](https://planetscale.com/), since it is a MySQL-compatible serverless database.
+This is project is deployed to [Vercel](https://vercel.com/) automatically using GitHub Actions on each push to `main` and uses as database [PlanetScale](https://planetscale.com/), since it is a MySQL-compatible serverless database.
