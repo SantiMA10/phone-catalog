@@ -1,4 +1,4 @@
-# 📞 Phone Catalog
+# 📞 Phone Catalog [![Deploy](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml/badge.svg)](https://github.com/SantiMA10/phone-catalog/actions/workflows/deploy.yml)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), that uses React to show a Phone Catalog and Next.js API routes as the backend for the catalog. 
 

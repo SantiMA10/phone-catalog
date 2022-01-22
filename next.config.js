@@ -18,9 +18,5 @@ module.exports = () => {
 		console.log('Using .env.docker');
 	}
 
-	if (!process.env.DEV_MODE) {
-		throw new Error('DEV_MODE is not defined');
-	}
-
 	return nextConfig;
 };
