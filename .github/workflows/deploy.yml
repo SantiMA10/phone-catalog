@@ -86,6 +86,11 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
       - run: yarn install --frozen-lockfile
       - run: yarn build
+        env:
+          PLANETSCALE_DB_USERNAME: ${{ secrets.PLANETSCALE_DB_USERNAME }}
+          PLANETSCALE_DB_PASSWORD: ${{ secrets.PLANETSCALE_DB_PASSWORD }}
+          PLANETSCALE_DB_HOST: ${{ secrets.PLANETSCALE_DB_HOST }}
+          PLANETSCALE_DB: ${{ secrets.PLANETSCALE_DB }}
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
