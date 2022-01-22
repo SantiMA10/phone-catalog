@@ -44,8 +44,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: example
           MYSQL_DATABASE: tests
-        command:
-          ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
     steps:
       - uses: actions/checkout@v2
