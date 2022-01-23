@@ -6,3 +6,9 @@ export const getPhones = async (): Promise<{ data: Phone[] }> => {
 
 	return { data: phones };
 };
+
+export const getPhone = async (id: Phone['id']): Promise<{ data: Phone | null }> => {
+	const phone = await prisma.phone.findFirst({ where: { id } });
+
+	return { data: phone };
+};
