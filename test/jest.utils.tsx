@@ -25,16 +25,20 @@ export function withDb(suite: () => void): void {
 	suite();
 }
 
-export function withNextApiRoute(handler: unknown, suite: (getUrl: () => string) => void): void {
+export function withNextApiRoute(
+	handler: unknown,
+	suite: (getUrl: () => string, setQuery: (query: unknown) => void) => void,
+): void {
 	let server: http.Server;
 	let url: string;
+	let query: unknown = undefined;
 
 	beforeEach(async () => {
 		server = http.createServer((req, res) =>
 			apiResolver(
 				req,
 				res,
-				undefined,
+				query,
 				handler,
 				{
 					previewModeId: 'id',
@@ -48,8 +52,14 @@ export function withNextApiRoute(handler: unknown, suite: (getUrl: () => string)
 	});
 
 	afterEach(async () => {
+		query = undefined;
 		await new Promise((resolve) => server.close(resolve));
 	});
 
-	suite(() => url);
+	suite(
+		() => url,
+		(newQuery) => {
+			query = newQuery;
+		},
+	);
 }
