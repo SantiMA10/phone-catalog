@@ -1,5 +1,5 @@
-import faker from '@faker-js/faker';
 import * as Factory from 'factory.ts';
+import faker from 'faker';
 
 import { prisma } from '../../src/lib/db';
 import { Phone } from '../../src/lib/entities/Phone';
