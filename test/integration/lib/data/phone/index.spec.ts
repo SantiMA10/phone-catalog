@@ -1,4 +1,4 @@
-import { getPhone, getPhones } from '../../../../../src/lib/data/phone';
+import { deletePhone, getPhone, getPhones } from '../../../../../src/lib/data/phone';
 import { PhoneBuilder } from '../../../../builders/PhoneBuilder';
 import { withDb } from '../../../../jest.utils';
 
@@ -36,6 +36,24 @@ withDb(() => {
 				const { data: phone } = await getPhone(dbPhone.id);
 
 				expect(phone).toStrictEqual(dbPhone);
+			});
+		});
+
+		describe('#deletePhone', () => {
+			it('returns the deleted flag set to false if the phone does not exists', async () => {
+				const phone = new PhoneBuilder().get();
+
+				const { deleted } = await deletePhone(phone.id);
+
+				expect(deleted).toBe(false);
+			});
+
+			it('returns the deleted flag set to true if the phone exists and was deleted', async () => {
+				const phone = await new PhoneBuilder().save();
+
+				const { deleted } = await deletePhone(phone.id);
+
+				expect(deleted).toBe(true);
 			});
 		});
 	});

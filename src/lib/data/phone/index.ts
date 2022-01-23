@@ -12,3 +12,14 @@ export const getPhone = async (id: Phone['id']): Promise<{ data: Phone | null }>
 
 	return { data: phone };
 };
+
+export const deletePhone = async (id: Phone['id']): Promise<{ deleted: boolean }> => {
+	try {
+		await prisma.phone.delete({ where: { id } });
+	} catch (error) {
+		console.error(error);
+		return { deleted: false };
+	}
+
+	return { deleted: true };
+};
