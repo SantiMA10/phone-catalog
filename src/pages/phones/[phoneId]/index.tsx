@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { PhoneDetail } from '../../../containers/PhoneDetail';
+import { useDeletePhone } from '../../../lib/hooks/useDeletePhone';
 import { usePhone } from '../../../lib/hooks/usePhone';
 
 const PhoneDetailPage: NextPage = () => {
@@ -11,6 +12,7 @@ const PhoneDetailPage: NextPage = () => {
 	const { phone, loading, error } = usePhone(
 		typeof router.query.phoneId === 'string' ? router.query.phoneId : undefined,
 	);
+	const { execute } = useDeletePhone(phone?.id);
 
 	return (
 		<>
@@ -19,7 +21,14 @@ const PhoneDetailPage: NextPage = () => {
 			</Head>
 
 			<Container>
-				<PhoneDetail phone={phone} loading={loading} error={error} onDelete={() => ({})} />
+				<PhoneDetail
+					phone={phone}
+					loading={loading}
+					error={error}
+					onDelete={() => {
+						execute();
+					}}
+				/>
 			</Container>
 		</>
 	);
