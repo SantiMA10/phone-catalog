@@ -11,7 +11,9 @@ export const NavBar = () => {
 			</Link>
 			<Spacer />
 			<Box>
-				<Button colorScheme="teal">Create new phone</Button>
+				<Link href="/phones/new" passHref>
+					<Button colorScheme="teal">Create new phone</Button>
+				</Link>
 			</Box>
 		</Flex>
 	);
