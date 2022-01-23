@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## It also uses...
 
 - [Chakra UI](https://chakra-ui.com/) as the main component library
-- [jest](https://jestjs.io/) + [Testing Library](https://testing-library.com/) as testing framework
+- [jest](https://jestjs.io/) + [Testing Library](https://testing-library.com/) + [User Event](https://testing-library.com/docs/ecosystem-user-event/) as testing framework
 - [eslint](https://eslint.org/) + [prettier](https://prettier.io/) to ensure that the code follows a common style
 - [prisma](https://www.prisma.io/) as ORM
 - [zx](https://github.com/google/zx) for scripting
@@ -17,7 +17,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### PlanetScale
 
-TODO
+If you want to setup a PlanetScale instance to use it to develop locally, you need to create a `.env.cloud.local` (You can use any of the other .env files as a template).
+
+In order to get the `DATABASE_URL`, you have a few options, all these options are explained [here](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases/connect-your-database-typescript-planetscale#connecting-your-database).
+
+Once you have the `DATABASE_URL`, you have to run `yarn cloud:migrate` to create the needed tables on PlanetScale.
+
+Then you can use the `yarn cloud:dev` command to start the dev server connected to PlanetScale.
 
 ## Development
 
