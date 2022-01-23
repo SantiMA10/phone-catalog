@@ -1,31 +1,36 @@
-import { Button } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import { Phone } from '@prisma/client';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 
-import { prisma } from '../lib/db';
+import { Home } from '../containers/Home';
+import { getPhones } from '../lib/data/phone';
+import { usePhones } from '../lib/hooks/usePhones';
 
 interface Props {
-	phones: Phone;
+	fallbacks: {
+		phones: { data: Phone[] };
+	};
 }
 
 const HomePage: NextPage<Props> = (props: Props) => {
+	const { phones, loading, error } = usePhones(props.fallbacks.phones);
+
 	return (
 		<>
 			<Head>
-				<title>Phone Catalog</title>
+				<title>Home | Phone Catalog</title>
 			</Head>
 
-			{JSON.stringify(props.phones)}
-
-			<Button colorScheme="blue">Button</Button>
+			<Container>
+				<Home phones={phones} loading={loading} error={error} />
+			</Container>
 		</>
 	);
 };
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-	const phones = await prisma.phone.findMany();
-	return { props: { phones } };
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+	return { props: { fallbacks: { phones: await getPhones() } } };
 };
