@@ -1,5 +1,5 @@
 import { prisma } from '../../db';
-import { Phone } from '../../entities/Phone';
+import { Phone, phoneSchema } from '../../entities/Phone';
 
 export const getPhones = async (): Promise<{ data: Phone[] }> => {
 	const phones = await prisma.phone.findMany();
@@ -22,4 +22,10 @@ export const deletePhone = async (id: Phone['id']): Promise<{ deleted: boolean }
 	}
 
 	return { deleted: true };
+};
+
+export const createPhone = async (phone: Partial<Phone>): Promise<{ data: Phone }> => {
+	const validatedPhone = await phoneSchema.validate(phone);
+
+	return { data: await prisma.phone.create({ data: validatedPhone }) };
 };

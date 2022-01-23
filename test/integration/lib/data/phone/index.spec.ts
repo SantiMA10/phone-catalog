@@ -1,4 +1,6 @@
-import { deletePhone, getPhone, getPhones } from '../../../../../src/lib/data/phone';
+import { ValidationError } from 'yup';
+
+import { createPhone, deletePhone, getPhone, getPhones } from '../../../../../src/lib/data/phone';
 import { PhoneBuilder } from '../../../../builders/PhoneBuilder';
 import { withDb } from '../../../../jest.utils';
 
@@ -54,6 +56,22 @@ withDb(() => {
 				const { deleted } = await deletePhone(phone.id);
 
 				expect(deleted).toBe(true);
+			});
+		});
+
+		describe('#createPhone', () => {
+			it('throws a ValidationError if the Phone does not comply with the validation schema', async () => {
+				const phone = new PhoneBuilder({ name: undefined }).get();
+
+				await expect(createPhone(phone)).rejects.toThrow(ValidationError);
+			});
+
+			it('returns the created phone if everything goes well', async () => {
+				const phone = new PhoneBuilder().get();
+
+				const { data: createdPhone } = await createPhone(phone);
+
+				expect(createdPhone).toStrictEqual(phone);
 			});
 		});
 	});
