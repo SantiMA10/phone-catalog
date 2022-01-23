@@ -1,6 +1,12 @@
 import { ValidationError } from 'yup';
 
-import { createPhone, deletePhone, getPhone, getPhones } from '../../../../../src/lib/data/phone';
+import {
+	createPhone,
+	deletePhone,
+	getPhone,
+	getPhones,
+	updatePhone,
+} from '../../../../../src/lib/data/phone';
 import { PhoneBuilder } from '../../../../builders/PhoneBuilder';
 import { withDb } from '../../../../jest.utils';
 
@@ -72,6 +78,32 @@ withDb(() => {
 				const { data: createdPhone } = await createPhone(phone);
 
 				expect(createdPhone).toStrictEqual(phone);
+			});
+		});
+
+		describe('#updatePhone', () => {
+			it('throws a ValidationError if the Phone does not comply with the validation schema', async () => {
+				const phone = await new PhoneBuilder().save();
+
+				await expect(updatePhone({ id: phone.id, name: undefined })).rejects.toThrow(
+					ValidationError,
+				);
+			});
+
+			it('returns the created phone if everything goes well', async () => {
+				const phone = await new PhoneBuilder().save();
+
+				const { data: updatedPhone } = await updatePhone({ id: phone.id, name: 'new name' });
+
+				expect(updatedPhone).toMatchObject({ id: phone.id, name: 'new name' });
+			});
+
+			it('returns null if the phone is not in the db', async () => {
+				const phone = new PhoneBuilder().get();
+
+				const { data: updatedPhone } = await updatePhone({ id: phone.id, name: 'new name' });
+
+				expect(updatedPhone).toBeNull();
 			});
 		});
 	});

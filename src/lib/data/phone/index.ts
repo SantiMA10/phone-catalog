@@ -29,3 +29,15 @@ export const createPhone = async (phone: Partial<Phone>): Promise<{ data: Phone 
 
 	return { data: await prisma.phone.create({ data: validatedPhone }) };
 };
+
+export const updatePhone = async (likePhone: Partial<Phone>): Promise<{ data: Phone | null }> => {
+	const phone = await prisma.phone.findFirst({ where: { id: likePhone.id } });
+
+	if (!phone) {
+		return { data: null };
+	}
+
+	const validatedPhone = await phoneSchema.validate({ ...phone, ...likePhone });
+
+	return { data: await prisma.phone.update({ where: { id: likePhone.id }, data: validatedPhone }) };
+};
