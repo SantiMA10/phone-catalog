@@ -36,6 +36,9 @@ export const Home = ({ phones, loading, error }: Props) => {
 							<GridItem
 								role="link"
 								bg="teal"
+								_hover={{
+									background: 'teal.500',
+								}}
 								w="100%"
 								p={4}
 								color="white"
