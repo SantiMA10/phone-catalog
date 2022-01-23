@@ -1,6 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import { PhoneForm } from '../../../../src/containers/PhoneForm';
+import { PhoneBuilder } from '../../../builders/PhoneBuilder';
 import { act, render, screen } from '../../../jest.utils';
 
 describe('PhoneDetail', () => {
@@ -57,5 +58,18 @@ describe('PhoneDetail', () => {
 		});
 
 		expect(onSubmit).toHaveBeenCalled();
+	});
+
+	it('calls the onSubmit handler with all the data the initial data', async () => {
+		const onSubmit = jest.fn();
+		const phone = new PhoneBuilder().get();
+		render(<PhoneForm onSubmit={onSubmit} initialPhone={phone} />);
+
+		await act(async () => {
+			const button = await screen.findByText(/update phone/i);
+			userEvent.click(button);
+		});
+
+		expect(onSubmit).toHaveBeenCalledWith(phone);
 	});
 });

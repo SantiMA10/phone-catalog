@@ -7,12 +7,15 @@ import { MainLayout } from '../../components/MainLayout';
 import { phoneSchema } from '../../lib/entities/Phone';
 
 interface Props {
+	initialPhone?: Phone | null;
+	loading?: boolean;
+	error?: Error;
 	onSubmit: (phone: Phone) => Promise<void>;
 }
 
-export const PhoneForm = ({ onSubmit }: Props) => {
+export const PhoneForm = ({ initialPhone, onSubmit, loading, error }: Props) => {
 	return (
-		<MainLayout loading={false}>
+		<MainLayout loading={!!loading} error={error}>
 			<Formik
 				initialValues={{
 					id: '',
@@ -25,7 +28,9 @@ export const PhoneForm = ({ onSubmit }: Props) => {
 					screen: '',
 					processor: '',
 					ram: 0,
+					...initialPhone,
 				}}
+				enableReinitialize
 				validationSchema={phoneSchema}
 				onSubmit={async (values, { setSubmitting }) => {
 					await onSubmit(values);
@@ -155,7 +160,8 @@ export const PhoneForm = ({ onSubmit }: Props) => {
 									'Saving...'
 								) : (
 									<>
-										<CheckCircleIcon /> Save phone
+										<CheckCircleIcon />
+										{initialPhone ? 'Update phone' : 'Save phone'}
 									</>
 								)}
 							</Button>

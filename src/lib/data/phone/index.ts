@@ -1,3 +1,5 @@
+import { omit } from 'lodash';
+
 import { prisma } from '../../db';
 import { Phone, phoneSchema } from '../../entities/Phone';
 
@@ -25,7 +27,7 @@ export const deletePhone = async (id: Phone['id']): Promise<{ deleted: boolean }
 };
 
 export const createPhone = async (phone: Partial<Phone>): Promise<{ data: Phone }> => {
-	const validatedPhone = await phoneSchema.validate(phone);
+	const validatedPhone = await phoneSchema.validate(omit(phone, ['id']));
 
 	return { data: await prisma.phone.create({ data: validatedPhone }) };
 };

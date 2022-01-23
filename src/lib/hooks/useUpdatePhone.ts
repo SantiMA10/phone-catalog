@@ -1,20 +1,19 @@
 import { useToast } from '@chakra-ui/react';
 import { Phone } from '@prisma/client';
-import { omit } from 'lodash';
 import { useRouter } from 'next/router';
 
-export const useCreatePhone = (): { execute: (phone: Phone) => Promise<void> } => {
+export const useUpdatePhone = (): { execute: (phone: Phone) => Promise<void> } => {
 	const toast = useToast();
 	const router = useRouter();
 
 	return {
 		execute: async (phone: Phone) => {
-			const response = await fetch('/api/phones', {
-				method: 'POST',
+			const response = await fetch(`/api/phones/${phone.id}`, {
+				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(omit(phone, ['id'])),
+				body: JSON.stringify(phone),
 			});
 
 			if (!response.ok) {

@@ -1,3 +1,4 @@
+import { omit } from 'lodash';
 import { ValidationError } from 'yup';
 
 import {
@@ -77,7 +78,15 @@ withDb(() => {
 
 				const { data: createdPhone } = await createPhone(phone);
 
-				expect(createdPhone).toStrictEqual(phone);
+				expect(createdPhone).toStrictEqual({ id: expect.any(String), ...omit(phone, ['id']) });
+			});
+
+			it('ignores the value of id', async () => {
+				const phone = new PhoneBuilder().get();
+
+				const { data: createdPhone } = await createPhone(phone);
+
+				expect(createdPhone).not.toMatchObject({ id: phone.id });
 			});
 		});
 

@@ -44,7 +44,7 @@ withDb(() => {
 				});
 
 				expect(response.status).toBe(201);
-				expect(await response.json()).toEqual({ data: phone });
+				expect(await response.json()).toEqual({ data: { ...phone, id: expect.any(String) } });
 			});
 		});
 	});
