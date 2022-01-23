@@ -40,4 +40,14 @@ describe('Home', () => {
 		expect(image).toBeInTheDocument();
 		expect(image).toHaveAttribute('src', phone.imageFileName);
 	});
+
+	it('each phone has a link to visit the detail', async () => {
+		const phone = new PhoneBuilder().get();
+		render(<Home phones={[phone]} loading={false} />);
+
+		const link = await screen.findByRole('link');
+
+		expect(link).toBeInTheDocument();
+		expect(link).toHaveAttribute('href', expect.stringContaining(`/phones/${phone.id}`));
+	});
 });
