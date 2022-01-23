@@ -6,39 +6,77 @@ import { withDb, withNextApiRoute } from '../../../../../jest.utils';
 
 withDb(() => {
 	withNextApiRoute(handleGetPhone, (getUrl, setQuery) => {
-		it('returns a 404 error if the phone does not exist in the db', async () => {
-			const phone = new PhoneBuilder().get();
+		describe('GET /api/phones/[phoneId]', () => {
+			it('returns a 404 error if the phone does not exist in the db', async () => {
+				const phone = new PhoneBuilder().get();
 
-			setQuery({ phoneId: phone.id });
-			const response = await fetch(getUrl());
+				setQuery({ phoneId: phone.id });
+				const response = await fetch(getUrl());
 
-			expect(response.status).toBe(404);
+				expect(response.status).toBe(404);
+			});
+
+			it('returns a 400 error if the phone id is missing', async () => {
+				setQuery({ phoneId: undefined });
+				const response = await fetch(getUrl());
+
+				expect(response.status).toBe(400);
+				expect(await response.json()).toStrictEqual({ message: 'Missing phoneId in query' });
+			});
+
+			it('returns a 400 error if the phone id is an array', async () => {
+				setQuery({ phoneId: [] });
+				const response = await fetch(getUrl());
+
+				expect(response.status).toBe(400);
+				expect(await response.json()).toStrictEqual({ message: 'Invalid phoneId type' });
+			});
+
+			it('returns the phone from the db', async () => {
+				const phone = await new PhoneBuilder().save();
+
+				setQuery({ phoneId: phone.id });
+				const response = await fetch(getUrl());
+
+				expect(response.status).toBe(200);
+				expect(await response.json()).toStrictEqual({ data: phone });
+			});
 		});
 
-		it('returns a 400 error if the phone id is missing', async () => {
-			setQuery({ phoneId: undefined });
-			const response = await fetch(getUrl());
+		describe('DELETE /api/phones/[phoneId]', () => {
+			it('returns a 400 error if the phone id is missing', async () => {
+				setQuery({ phoneId: undefined });
+				const response = await fetch(getUrl(), { method: 'DELETE' });
 
-			expect(response.status).toBe(400);
-			expect(await response.json()).toStrictEqual({ message: 'Missing phoneId in query' });
-		});
+				expect(response.status).toBe(400);
+				expect(await response.json()).toStrictEqual({ message: 'Missing phoneId in query' });
+			});
 
-		it('returns a 400 error if the phone id is an array', async () => {
-			setQuery({ phoneId: [] });
-			const response = await fetch(getUrl());
+			it('returns a 400 error if the phone id is an array', async () => {
+				setQuery({ phoneId: [] });
+				const response = await fetch(getUrl(), { method: 'DELETE' });
 
-			expect(response.status).toBe(400);
-			expect(await response.json()).toStrictEqual({ message: 'Invalid phoneId type' });
-		});
+				expect(response.status).toBe(400);
+				expect(await response.json()).toStrictEqual({ message: 'Invalid phoneId type' });
+			});
 
-		it('returns the phone from the db', async () => {
-			const phone = await new PhoneBuilder().save();
+			it('returns a 404 error if the phone does not exist in the db', async () => {
+				const phone = new PhoneBuilder().get();
 
-			setQuery({ phoneId: phone.id });
-			const response = await fetch(getUrl());
+				setQuery({ phoneId: phone.id });
+				const response = await fetch(getUrl(), { method: 'DELETE' });
 
-			expect(response.status).toBe(200);
-			expect(await response.json()).toStrictEqual({ data: phone });
+				expect(response.status).toBe(404);
+			});
+
+			it('returns a 204 if the phone exists and was deleted', async () => {
+				const phone = await new PhoneBuilder().save();
+
+				setQuery({ phoneId: phone.id });
+				const response = await fetch(getUrl(), { method: 'DELETE' });
+
+				expect(response.status).toBe(204);
+			});
 		});
 	});
 });
