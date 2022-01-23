@@ -6,7 +6,7 @@ describe('Home', () => {
 	it('shows the loading screen if the content is loading', async () => {
 		render(<Home phones={[]} loading={true} />);
 
-		const loading = await screen.findByText(/loading\.\.\./i);
+		const loading = await screen.findByText(/loading\.\.\./i, { selector: 'p.chakra-text' });
 
 		expect(loading).toBeInTheDocument();
 	});
@@ -45,7 +45,7 @@ describe('Home', () => {
 		const phone = new PhoneBuilder().get();
 		render(<Home phones={[phone]} loading={false} />);
 
-		const link = await screen.findByRole('link');
+		const link = await screen.findByTestId(`phone-link-${phone.id}`);
 
 		expect(link).toBeInTheDocument();
 		expect(link).toHaveAttribute('href', expect.stringContaining(`/phones/${phone.id}`));

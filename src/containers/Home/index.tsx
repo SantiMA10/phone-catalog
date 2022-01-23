@@ -1,18 +1,8 @@
 import { ChevronRightIcon, WarningTwoIcon } from '@chakra-ui/icons';
-import {
-	Center,
-	Flex,
-	Grid,
-	GridItem,
-	Image,
-	Spacer,
-	Spinner,
-	Stack,
-	Text,
-} from '@chakra-ui/react';
+import { Center, Flex, Grid, GridItem, Image, Spacer, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { NavBar } from '../../components/NavBar';
+import { MainLayout } from '../../components/MainLayout';
 import { Phone } from '../../lib/entities/Phone';
 
 interface Props {
@@ -22,48 +12,23 @@ interface Props {
 }
 
 export const Home = ({ phones, loading, error }: Props) => {
-	if (loading) {
-		return (
-			<Center h="100vh">
-				<Stack>
-					<Center>
-						<Spinner />
-					</Center>
-					<Text>Loading...</Text>
-				</Stack>
-			</Center>
-		);
-	}
-
-	if (error) {
-		return (
-			<Center h="100vh">
-				<Stack>
-					<Center>
-						<WarningTwoIcon />
-					</Center>
-					<Text>Something went wrong: {error.message}</Text>
-				</Stack>
-			</Center>
-		);
-	}
-
 	if (phones.length === 0) {
 		return (
-			<Center h="100vh">
-				<Stack>
-					<Center>
-						<WarningTwoIcon />
-					</Center>
-					<Text>We do not have any phone in the catalog yet</Text>
-				</Stack>
-			</Center>
+			<MainLayout loading={loading} error={error}>
+				<Center h="100vh">
+					<Stack>
+						<Center>
+							<WarningTwoIcon />
+						</Center>
+						<Text>We do not have any phone in the catalog yet</Text>
+					</Stack>
+				</Center>
+			</MainLayout>
 		);
 	}
 
 	return (
-		<>
-			<NavBar />
+		<MainLayout loading={loading} error={error}>
 			<Grid gap={2}>
 				{phones.map((phone) => {
 					return (
@@ -76,6 +41,7 @@ export const Home = ({ phones, loading, error }: Props) => {
 								color="white"
 								cursor={'pointer'}
 								borderRadius={4}
+								data-testid={`phone-link-${phone.id}`}
 							>
 								<Flex align="center">
 									<Image
@@ -96,6 +62,6 @@ export const Home = ({ phones, loading, error }: Props) => {
 					);
 				})}
 			</Grid>
-		</>
+		</MainLayout>
 	);
 };
