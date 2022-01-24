@@ -1364,10 +1364,10 @@
     prop-types "^15.7.2"
     tslib "^2.1.0"
 
-"@santima10/eslint-config@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@santima10/eslint-config/-/eslint-config-2.1.0.tgz#22faab4f8b80b93aa05e8904309e2f8bd11d45a7"
-  integrity sha512-IdSSMVv8SlzfMG6qhsJ0bO32vTJk1nwqKhp+X19BLntmcdzA92fGW9TmI/0/wDqTCyM4eN8LGlljZlrBUMyK3w==
+"@santima10/eslint-config@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@santima10/eslint-config/-/eslint-config-2.2.0.tgz#70436a786a1211eeb81f6ccef494de857c984945"
+  integrity sha512-5Wy3jQXPUnHqKtnwtcCfxx1P0H66BVmXUZKuWxexFrtg4iYZSkS/FmqOr9z/ZAUoALWAr1O/AeS0bPEdNxK0dQ==
   dependencies:
     "@typescript-eslint/parser" "^5.10.0"
     read-pkg-up "^7.0.0"
