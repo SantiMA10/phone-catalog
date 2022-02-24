@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { render, RenderOptions } from '@testing-library/react';
 import http from 'http';
-import { apiResolver } from 'next/dist/server/api-utils';
+import { apiResolver } from 'next/dist/server/api-utils/node';
 import React, { FC, ReactElement } from 'react';
 import listen from 'test-listen';
 
