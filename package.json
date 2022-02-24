@@ -9,7 +9,7 @@
 		"docker:dev": "yarn docker:up && yarn docker:migrate && DEV_MODE=docker next dev && yarn docker:down",
 		"docker:up": "docker-compose up -d && zx --quiet ./bin/wait-for-mysql.mjs",
 		"docker:down": "docker-compose down",
-		"docker:test:integration": "yarn docker:up && yarn docker:migrate && DEV_MODE=docker yarn test test/integration && yarn docker:down",
+		"docker:test:integration": "yarn docker:up && yarn docker:migrate && DEV_MODE=docker yarn test:integration && yarn docker:down",
 		"docker:test:watch": "./bin/watch-docker",
 		"db:migrate": "npx prisma db push",
 		"build": "next build",
@@ -17,7 +17,7 @@
 		"lint": "next lint",
 		"test": "jest",
 		"test:unit": "yarn test test/unit",
-		"test:integration": "yarn test test/integration",
+		"test:integration": "yarn test test/integration --runInBand",
 		"test:watch": "jest --watch"
 	},
 	"dependencies": {
@@ -30,7 +30,7 @@
 		"formik": "^2.2.9",
 		"framer-motion": "^5",
 		"lodash": "^4.17.21",
-		"next": "12.0.9",
+		"next": "12.1.0",
 		"next-connect": "^0.11.0",
 		"prisma": "^3.8.1",
 		"react": "17.0.2",

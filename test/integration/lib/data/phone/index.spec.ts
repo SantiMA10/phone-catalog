@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import { omit } from 'lodash';
 import { ValidationError } from 'yup';
 

@@ -28,7 +28,7 @@ export const useUpdatePhone = (): { execute: (phone: Phone) => Promise<void> } =
 			}
 
 			toast({
-				title: 'New phone successfully created.',
+				title: 'Phone successfully updated.',
 				status: 'success',
 				duration: 9000,
 				isClosable: true,
