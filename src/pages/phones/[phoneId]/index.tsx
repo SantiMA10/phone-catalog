@@ -3,11 +3,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { PhoneDetail } from '../../../containers/PhoneDetail';
+import { PhoneDetailPage } from '../../../components/PhoneDetailPage';
 import { useDeletePhone } from '../../../lib/hooks/useDeletePhone';
 import { usePhone } from '../../../lib/hooks/usePhone';
 
-const PhoneDetailPage: NextPage = () => {
+const PhoneDetailNextPage: NextPage = () => {
 	const router = useRouter();
 	const { phone, loading, error } = usePhone(
 		typeof router.query.phoneId === 'string' ? router.query.phoneId : undefined,
@@ -21,7 +21,7 @@ const PhoneDetailPage: NextPage = () => {
 			</Head>
 
 			<Container>
-				<PhoneDetail
+				<PhoneDetailPage
 					phone={phone}
 					loading={loading}
 					error={error}
@@ -34,4 +34,4 @@ const PhoneDetailPage: NextPage = () => {
 	);
 };
 
-export default PhoneDetailPage;
+export default PhoneDetailNextPage;

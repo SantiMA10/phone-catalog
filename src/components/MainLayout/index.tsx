@@ -2,7 +2,7 @@ import { WarningTwoIcon } from '@chakra-ui/icons';
 import { Center, Spinner, Stack, Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
-import { NavBar } from '../NavBar';
+import { NavBar } from './components/NavBar';
 
 interface Props {
 	loading: boolean;

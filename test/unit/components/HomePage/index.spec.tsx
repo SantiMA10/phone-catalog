@@ -1,10 +1,10 @@
-import { Home } from '../../../../src/containers/Home';
+import { HomePage } from '../../../../src/components/HomePage';
 import { PhoneBuilder } from '../../../builders/PhoneBuilder';
 import { render, screen } from '../../../jest.utils';
 
-describe('Home', () => {
+describe('HomePage', () => {
 	it('shows the loading screen if the content is loading', async () => {
-		render(<Home phones={[]} loading={true} />);
+		render(<HomePage phones={[]} loading={true} />);
 
 		const loading = await screen.findByText(/loading\.\.\./i, { selector: 'p.chakra-text' });
 
@@ -12,7 +12,7 @@ describe('Home', () => {
 	});
 
 	it('shows the error message', async () => {
-		render(<Home phones={[]} loading={false} error={new Error('ups')} />);
+		render(<HomePage phones={[]} loading={false} error={new Error('ups')} />);
 
 		const error = await screen.findByText(/something went wrong: ups/i);
 
@@ -20,7 +20,7 @@ describe('Home', () => {
 	});
 
 	it('tells the user that there is no phone in the catalog', async () => {
-		render(<Home phones={[]} loading={false} />);
+		render(<HomePage phones={[]} loading={false} />);
 
 		const emptyMessage = await screen.findByText(/we do not have any phone in the catalog yet/i);
 
@@ -29,7 +29,7 @@ describe('Home', () => {
 
 	it('shows the phone name, phone manufacturer and phone image for each phone in the list', async () => {
 		const phone = new PhoneBuilder().get();
-		render(<Home phones={[phone]} loading={false} />);
+		render(<HomePage phones={[phone]} loading={false} />);
 
 		const name = await screen.findByText(`📱 ${phone.name}`);
 		const manufacturer = await screen.findByText(`🏗 ${phone.manufacturer}`);
@@ -43,7 +43,7 @@ describe('Home', () => {
 
 	it('each phone has a link to visit the detail', async () => {
 		const phone = new PhoneBuilder().get();
-		render(<Home phones={[phone]} loading={false} />);
+		render(<HomePage phones={[phone]} loading={false} />);
 
 		const link = await screen.findByTestId(`phone-link-${phone.id}`);
 

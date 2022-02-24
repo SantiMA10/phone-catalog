@@ -2,8 +2,8 @@ import { ChevronRightIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { Center, Flex, Grid, GridItem, Image, Spacer, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-import { MainLayout } from '../../components/MainLayout';
 import { Phone } from '../../lib/entities/Phone';
+import { MainLayout } from '../MainLayout';
 
 interface Props {
 	phones: Phone[];
@@ -11,7 +11,7 @@ interface Props {
 	error?: Error;
 }
 
-export const Home = ({ phones, loading, error }: Props) => {
+export const HomePage = ({ phones, loading, error }: Props) => {
 	if (phones.length === 0) {
 		return (
 			<MainLayout loading={loading} error={error}>
