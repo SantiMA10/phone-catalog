@@ -1,9 +1,11 @@
-import { DeleteIcon, EditIcon, WarningTwoIcon } from '@chakra-ui/icons';
-import { Button, Center, Image, Stack, Table, Tbody, Td, Text, Tr } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Button, Center, Image, Table, Tbody } from '@chakra-ui/react';
 import Link from 'next/link';
 
 import { Phone } from '../../lib/entities/Phone';
 import { MainLayout } from '../MainLayout';
+import { PhoneDetailRow } from './components/PhoneDetailRow';
+import { PhoneNotFound } from './components/PhoneNotFound';
 
 interface Props {
 	phone: Phone | null;
@@ -16,14 +18,7 @@ export const PhoneDetailPage = ({ phone, loading, error, onDelete }: Props) => {
 	if (!phone) {
 		return (
 			<MainLayout loading={loading} error={error}>
-				<Center h="100vh">
-					<Stack>
-						<Center>
-							<WarningTwoIcon />
-						</Center>
-						<Text>Ups! We cannot find that phone in our catalog</Text>
-					</Stack>
-				</Center>
+				<PhoneNotFound />
 			</MainLayout>
 		);
 	}
@@ -36,62 +31,13 @@ export const PhoneDetailPage = ({ phone, loading, error, onDelete }: Props) => {
 
 			<Table variant="striped" colorScheme="teal">
 				<Tbody>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Name</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.name}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Manufacturer</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.manufacturer}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Description</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.description}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Price</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.price}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">RAM</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.ram}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Color</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.color}</Text>
-						</Td>
-					</Tr>
-					<Tr>
-						<Td>
-							<Text fontWeight="black">Processor</Text>
-						</Td>
-						<Td>
-							<Text fontSize="xl">{phone.processor}</Text>
-						</Td>
-					</Tr>
+					<PhoneDetailRow description="Name" value={phone.name} />
+					<PhoneDetailRow description="Manufacturer" value={phone.manufacturer} />
+					<PhoneDetailRow description="Description" value={phone.description} />
+					<PhoneDetailRow description="Price" value={phone.price} />
+					<PhoneDetailRow description="RAM" value={phone.ram} />
+					<PhoneDetailRow description="Color" value={phone.color} />
+					<PhoneDetailRow description="Processor" value={phone.processor} />
 				</Tbody>
 			</Table>
 
