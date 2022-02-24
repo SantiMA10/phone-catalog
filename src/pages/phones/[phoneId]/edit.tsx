@@ -3,11 +3,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { PhoneForm } from '../../../containers/PhoneForm';
+import { PhoneFormPage } from '../../../components/PhoneFormPage';
 import { usePhone } from '../../../lib/hooks/usePhone';
 import { useUpdatePhone } from '../../../lib/hooks/useUpdatePhone';
 
-const EditPhonePage: NextPage = () => {
+const EditPhoneNextPage: NextPage = () => {
 	const router = useRouter();
 	const { phone, loading, error } = usePhone(
 		typeof router.query.phoneId === 'string' ? router.query.phoneId : undefined,
@@ -21,7 +21,7 @@ const EditPhonePage: NextPage = () => {
 			</Head>
 
 			<Container>
-				<PhoneForm
+				<PhoneFormPage
 					onSubmit={async (phone) => execute(phone)}
 					initialPhone={phone}
 					loading={loading}
@@ -32,4 +32,4 @@ const EditPhonePage: NextPage = () => {
 	);
 };
 
-export default EditPhonePage;
+export default EditPhoneNextPage;

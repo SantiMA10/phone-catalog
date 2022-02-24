@@ -3,8 +3,8 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input } from '@c
 import { Phone } from '@prisma/client';
 import { Formik } from 'formik';
 
-import { MainLayout } from '../../components/MainLayout';
 import { phoneSchema } from '../../lib/entities/Phone';
+import { MainLayout } from '../MainLayout';
 
 interface Props {
 	initialPhone?: Phone | null;
@@ -13,7 +13,7 @@ interface Props {
 	onSubmit: (phone: Phone) => Promise<void>;
 }
 
-export const PhoneForm = ({ initialPhone, onSubmit, loading, error }: Props) => {
+export const PhoneFormPage = ({ initialPhone, onSubmit, loading, error }: Props) => {
 	return (
 		<MainLayout loading={!!loading} error={error}>
 			<Formik

@@ -2,8 +2,8 @@ import { DeleteIcon, EditIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { Button, Center, Image, Stack, Table, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 import Link from 'next/link';
 
-import { MainLayout } from '../../components/MainLayout';
 import { Phone } from '../../lib/entities/Phone';
+import { MainLayout } from '../MainLayout';
 
 interface Props {
 	phone: Phone | null;
@@ -12,7 +12,7 @@ interface Props {
 	onDelete: (phoneId: Phone['id']) => void;
 }
 
-export const PhoneDetail = ({ phone, loading, error, onDelete }: Props) => {
+export const PhoneDetailPage = ({ phone, loading, error, onDelete }: Props) => {
 	if (!phone) {
 		return (
 			<MainLayout loading={loading} error={error}>

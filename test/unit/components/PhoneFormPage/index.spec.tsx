@@ -1,12 +1,12 @@
 import userEvent from '@testing-library/user-event';
 
-import { PhoneForm } from '../../../../src/containers/PhoneForm';
+import { PhoneFormPage } from '../../../../src/components/PhoneFormPage';
 import { PhoneBuilder } from '../../../builders/PhoneBuilder';
 import { act, render, screen } from '../../../jest.utils';
 
-describe('PhoneDetail', () => {
+describe('PhoneDetailPage', () => {
 	it('shows the validation error if the user tries to submit the form without completing it', async () => {
-		render(<PhoneForm onSubmit={jest.fn()} />);
+		render(<PhoneFormPage onSubmit={jest.fn()} />);
 
 		await act(async () => {
 			const button = await screen.findByText(/save phone/i);
@@ -25,7 +25,7 @@ describe('PhoneDetail', () => {
 	});
 
 	it('shows the validation error if the user tries enter a invalid url', async () => {
-		render(<PhoneForm onSubmit={jest.fn()} />);
+		render(<PhoneFormPage onSubmit={jest.fn()} />);
 
 		const imageField = await screen.findByLabelText(/^Image$/i);
 		userEvent.type(imageField, 'invalid url');
@@ -40,7 +40,7 @@ describe('PhoneDetail', () => {
 
 	it('calls the onSubmit handler with all the data in the form', async () => {
 		const onSubmit = jest.fn();
-		render(<PhoneForm onSubmit={onSubmit} />);
+		render(<PhoneFormPage onSubmit={onSubmit} />);
 
 		userEvent.type(await screen.findByLabelText(/^name$/i), 'iPhone 11');
 		userEvent.type(await screen.findByLabelText(/^manufacturer$/i), 'Apple');
@@ -63,7 +63,7 @@ describe('PhoneDetail', () => {
 	it('calls the onSubmit handler with all the data the initial data', async () => {
 		const onSubmit = jest.fn();
 		const phone = new PhoneBuilder().get();
-		render(<PhoneForm onSubmit={onSubmit} initialPhone={phone} />);
+		render(<PhoneFormPage onSubmit={onSubmit} initialPhone={phone} />);
 
 		await act(async () => {
 			const button = await screen.findByText(/update phone/i);

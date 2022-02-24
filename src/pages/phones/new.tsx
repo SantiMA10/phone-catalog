@@ -2,10 +2,10 @@ import { Container } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import { PhoneForm } from '../../containers/PhoneForm';
+import { PhoneFormPage } from '../../components/PhoneFormPage';
 import { useCreatePhone } from '../../lib/hooks/useCreatePhone';
 
-const CreatePhonePage: NextPage = () => {
+const CreatePhoneNextPage: NextPage = () => {
 	const { execute } = useCreatePhone();
 
 	return (
@@ -15,10 +15,10 @@ const CreatePhonePage: NextPage = () => {
 			</Head>
 
 			<Container>
-				<PhoneForm onSubmit={async (phone) => execute(phone)} />
+				<PhoneFormPage onSubmit={async (phone) => execute(phone)} />
 			</Container>
 		</>
 	);
 };
 
-export default CreatePhonePage;
+export default CreatePhoneNextPage;
