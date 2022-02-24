@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import fetch from 'node-fetch';
 
 import handleGetPhone from '../../../../../../src/pages/api/phones/[phoneId]';
